@@ -1,0 +1,41 @@
+---
+- name: hosts
+  template: src=hosts.j2 dest=/etc/hosts owner=root group=root mode=0644
+  tags: hosts
+
+- name: resolvconf
+  template: src={{ item.src }} dest={{ item.dest }} owner=root group=root mode=0644
+  with_items:
+    - src: resolvconf.base.j2
+      dest: /etc/resolvconf/resolv.conf.d/base
+  notify: restart resolvconf
+  tags: resolvconf
+
+- name: create groups
+  group: name={{ item.name }} state=present
+  tags: users
+  with_items: "{{ users }}"
+
+- name: create users
+  user: name={{ item.name }} shell=/bin/bash state=present group={{ item.name }} append=yes groups={{ item.groups }}
+  tags: users
+  with_items: "{{ users }}"
+
+- name: change password
+  user: name={{ item.name }} password={{ item.password }}
+  with_items: "{{ users }}"
+  tags: users
+
+- name: create .ssh directory
+  file: path=/home/{{ item.name }}/.ssh state=directory owner={{ item.name }} group={{ item.name }} mode=0700
+  with_items: "{{ users }}"
+  tags: users
+
+- name: create authorized_keys
+  copy: src=authorized_keys dest=/home/{{ item.name }}/.ssh/authorized_keys owner={{ item.name }} group={{ item.name }} mode=0600
+  with_items: "{{ users }}"
+  tags: users
+
+- name: configure sudoers
+  template: src=00_common.sudo.j2 dest=/etc/sudoers.d/00_common owner=root group=root mode=0440
+  tags: users

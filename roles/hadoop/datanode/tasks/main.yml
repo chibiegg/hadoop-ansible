@@ -1,0 +1,11 @@
+---
+
+- name: directories
+  file: path={{ item }} state=directory owner=hadoop group=hadoop mode=0700
+  with_items:
+    - /var/lib/hadoop/hdfs/datanode
+
+- name: service hadoop-datanode
+  service: name=hadoop-datanode enabled=yes state=started
+  tags:
+    - service

@@ -1,0 +1,14 @@
+
+users:
+  - name: admin
+    password: $6$oBk8pWqzU1bm06C$YMYVb2WTr.9wN/Bf3WkHO2iKf9BrUzqJiwzZiGxHnDljQBfa/jsZtmyuY5oNvkUxxX754h0e1RY8PkD6ccyqG/
+    groups: sudo
+    home: /home/admin
+  - name: ubuntu
+    password: $6$oBk8pWqzU1bm06C$YMYVb2WTr.9wN/Bf3WkHO2iKf9BrUzqJiwzZiGxHnDljQBfa/jsZtmyuY5oNvkUxxX754h0e1RY8PkD6ccyqG/
+    groups: sudo
+    home: /home/ubuntu
+  - name: hadoop
+    password: $6$oBk8pWqzU1bm06C$YMYVb2WTr.9wN/Bf3WkHO2iKf9BrUzqJiwzZiGxHnDljQBfa/jsZtmyuY5oNvkUxxX754h0e1RY8PkD6ccyqG/
+    groups: hadoop
+    home: /home/hadoop

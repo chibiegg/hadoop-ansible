@@ -1,0 +1,55 @@
+---
+
+- name: ensure required packages are installed for Hadoop
+  apt: name={{item}} state=latest update_cache=yes
+  with_items:
+    - pdsh
+
+- name: check hadoop
+  stat: path=/usr/src/hadoop-2.7.3
+  register: hadoop_home
+
+- name: download Hadoop
+  get_url:
+    url: http://ftp.jaist.ac.jp/pub/apache/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
+    dest: /usr/src/hadoop-2.7.3.tar.gz
+  when: not hadoop_home.stat.exists
+
+- name: extract Hadoop
+  unarchive:
+    src: /usr/src/hadoop-2.7.3.tar.gz
+    dest: /usr/src/
+    copy: no
+  when: not hadoop_home.stat.exists
+
+- name: directories
+  file: path={{ item }} state=directory owner=hadoop group=hadoop mode=0755
+  with_items:
+    - /usr/src/hadoop-2.7.3/logs
+    - /var/lib/hadoop
+    - /var/lib/hadoop/hdfs
+
+- name: config
+  template: src={{ item }} dest=/usr/src/hadoop-2.7.3/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - etc/hadoop/core-site.xml
+    - etc/hadoop/hdfs-site.xml
+    - etc/hadoop/hadoop-env.sh
+    - etc/hadoop/mapred-site.xml
+    - etc/hadoop/yarn-site.xml
+    - etc/hadoop/yarn-env.sh
+  tags:
+    - config
+
+- name: upstart
+  template: src=init/{{ item }} dest=/etc/init/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - hadoop-namenode.conf
+    - hadoop-datanode.conf
+    - yarn-resourcemanager.conf
+    - yarn-nodemanager.conf
+    - yarn-timelineserver.conf
+  notify:
+    - reload initctl
+  tags:
+    - upstart

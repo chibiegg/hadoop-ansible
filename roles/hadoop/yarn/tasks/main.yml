@@ -1,0 +1,15 @@
+---
+
+- name: directories
+  file: path={{ item }} state=directory owner=hadoop group=hadoop mode=0700
+  with_items:
+    - /var/lib/hadoop/hdfs/datanode
+
+- name: yarm services
+  service: name={{ item }} enabled=yes state=started
+  tags:
+    - service
+  with_items:
+    - yarn-resourcemanager
+    - yarn-nodemanager
+    - yarn-timelineserver

@@ -1,0 +1,21 @@
+---
+
+- hosts: all
+  sudo: yes
+  roles:
+    - hadoop
+
+- hosts: namenode
+  sudo: yes
+  roles:
+    - hadoop/namenode
+
+- hosts: datanode
+  sudo: yes
+  roles:
+    - hadoop/datanode
+
+- hosts: yarn
+  sudo: yes
+  roles:
+    - hadoop/yarn

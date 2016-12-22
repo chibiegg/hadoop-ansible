@@ -1,0 +1,18 @@
+[namenode]
+192.168.11.101 hostname=hadoop-01
+
+[datanode]
+192.168.11.101 hostname=hadoop-01
+192.168.11.102 hostname=hadoop-02
+192.168.11.103 hostname=hadoop-03
+192.168.11.104 hostname=hadoop-04
+192.168.11.105 hostname=hadoop-05
+192.168.11.106 hostname=hadoop-06
+
+[yarn]
+192.168.11.101 hostname=hadoop-01
+192.168.11.102 hostname=hadoop-02
+192.168.11.103 hostname=hadoop-03
+192.168.11.104 hostname=hadoop-04
+192.168.11.105 hostname=hadoop-05
+192.168.11.106 hostname=hadoop-06

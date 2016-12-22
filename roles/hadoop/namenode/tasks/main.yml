@@ -1,0 +1,19 @@
+---
+
+- name: directories
+  file: path={{ item }} state=directory owner=hadoop group=hadoop mode=0700
+  with_items:
+    - /var/lib/hadoop/hdfs/namenode
+
+- name: check hdfs namenode
+  stat: path=/var/lib/hadoop/hdfs/namenode/current
+  register: hdfs_namenode
+
+- name: format hdfs namenode
+  shell: sudo -u hadoop /usr/src/hadoop-2.7.3/bin/hadoop namenode -format
+  when: not hdfs_namenode.stat.exists
+
+- name: service hadoop-namenode
+  service: name=hadoop-namenode enabled=yes state=started
+  tags:
+    - service

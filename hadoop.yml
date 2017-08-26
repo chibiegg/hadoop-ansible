@@ -15,7 +15,12 @@
   roles:
     - hadoop/datanode
 
-- hosts: yarn
+- hosts: resourcemanager
   sudo: yes
   roles:
-    - hadoop/yarn
+    - hadoop/resourcemanager
+
+- hosts: nodemanager
+  sudo: yes
+  roles:
+    - hadoop/nodemanager

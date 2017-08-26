@@ -6,4 +6,10 @@ hadoop-02.hadoop.ishikari-dc.jp
 hadoop-03.hadoop.ishikari-dc.jp
 hadoop-04.hadoop.ishikari-dc.jp
 
-[yarn]
+[resourcemanager]
+hadoop-01.hadoop.ishikari-dc.jp
+
+[nodemanager]
+hadoop-02.hadoop.ishikari-dc.jp
+hadoop-03.hadoop.ishikari-dc.jp
+hadoop-04.hadoop.ishikari-dc.jp

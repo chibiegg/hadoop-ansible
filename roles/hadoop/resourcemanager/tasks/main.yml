@@ -1,0 +1,13 @@
+---
+
+- name: systemd yarn-resourcemanager
+  template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
+  with_items:
+    yarn-resourcemanager
+  tags:
+    - service
+
+- name: service yarn-resourcemanager
+  service: name=yarn-resourcemanager enabled=yes state=started
+  tags:
+    - service

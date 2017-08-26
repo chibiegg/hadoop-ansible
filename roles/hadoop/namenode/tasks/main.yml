@@ -13,6 +13,13 @@
   shell: sudo -u hadoop /usr/src/hadoop-2.7.3/bin/hadoop namenode -format
   when: not hdfs_namenode.stat.exists
 
+- name: systemd hadoop-namenode
+  template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
+  with_items:
+    hadoop-namenode
+  tags:
+    - service
+
 - name: service hadoop-namenode
   service: name=hadoop-namenode enabled=yes state=started
   tags:

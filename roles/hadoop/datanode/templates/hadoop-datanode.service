@@ -1,0 +1,20 @@
+[Unit]
+Description=Hadoop DFS datanode
+After=syslog.target network.target remote-fs.target nss-lookup.target network-online.target
+Requires=network-online.target
+
+[Service]
+User=hadoop
+Group=hadoop
+
+WorkingDirectory=/usr/src/hadoop-2.7.3
+
+Type = simple
+ExecStart = /usr/src/hadoop-2.7.3/bin/hdfs datanode
+Restart = always
+TimeoutStartSec=2min
+
+PIDFile=/tmp/hadoop-hadoop-datanode.pid
+
+[Install]
+WantedBy=multi-user.target

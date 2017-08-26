@@ -5,6 +5,13 @@
   with_items:
     - /var/lib/hadoop/hdfs/datanode
 
+- name: systemd hadoop-datanode
+  template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
+  with_items:
+    hadoop-datanode
+  tags:
+    - service
+
 - name: service hadoop-datanode
   service: name=hadoop-datanode enabled=yes state=started
   tags:

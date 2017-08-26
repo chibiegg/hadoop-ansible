@@ -41,15 +41,15 @@
   tags:
     - config
 
-- name: upstart
-  template: src=init/{{ item }} dest=/etc/init/{{ item }} owner=root group=root mode=0644
-  with_items:
-    - hadoop-namenode.conf
-    - hadoop-datanode.conf
-    - yarn-resourcemanager.conf
-    - yarn-nodemanager.conf
-    - yarn-timelineserver.conf
-  notify:
-    - reload initctl
-  tags:
-    - upstart
+#- name: upstart
+#  template: src=init/{{ item }} dest=/etc/init/{{ item }} owner=root group=root mode=0644
+#  with_items:
+#    - hadoop-namenode.conf
+#    - hadoop-datanode.conf
+#    - yarn-resourcemanager.conf
+#    - yarn-nodemanager.conf
+#    - yarn-timelineserver.conf
+#  notify:
+#    - reload initctl
+#  tags:
+#    - upstart

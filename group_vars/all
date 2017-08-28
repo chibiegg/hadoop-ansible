@@ -12,3 +12,6 @@ users:
     password: $6$Ms.iy98M$DU7vQ67xYurLtrtTSIBag6msFmRJIyncTfYnGxIkAlOLvBbGECeOQ8RK7TAfYz5lwxi9gsJoV769p8.YDddX31
     groups: hadoop
     home: /home/hadoop
+
+
+name_node: manage-01
